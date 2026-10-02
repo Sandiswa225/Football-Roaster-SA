@@ -1,0 +1,19 @@
+name: Auto Roast Post
+on:
+  schedule:
+    - cron: '0 7,13,18 * * *'
+  workflow_dispatch:
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      - run: pip install requests
+      - run: python post.py
+        env:
+          PAGE_ID: ${{ secrets.PAGE_ID }}
+          FB_TOKEN: ${{ secrets.FB_TOKEN }}
